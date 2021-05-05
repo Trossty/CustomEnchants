@@ -4,9 +4,16 @@ import customenchants.customenchants.Main;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-public class Freeze extends Enchantment{
+public class Freeze extends Enchantment implements Listener {
 
     public Freeze(String namespace){
         super(new NamespacedKey(Main.getPlugin(Main.class), namespace));
@@ -51,4 +58,16 @@ public class Freeze extends Enchantment{
     public boolean canEnchantItem(ItemStack item) {
         return true;
     }
+
+    @EventHandler
+    public void freeze(EntityDamageByEntityEvent event){
+        if(!(event.getDamager() instanceof Player)) return;
+        Player player = (Player) event.getDamager();
+        ItemStack itemStack = player.getInventory().getItemInMainHand();
+        if(itemStack.getEnchantments().containsKey(Enchantment.getByKey(getKey()))){
+            LivingEntity victim = (LivingEntity) event.getEntity();
+            victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5 * 20, 100));
+        }
+    }
+
 }

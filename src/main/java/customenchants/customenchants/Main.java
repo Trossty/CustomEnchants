@@ -3,9 +3,6 @@ package customenchants.customenchants;
 import customenchants.customenchants.enchants.Firsthit;
 import customenchants.customenchants.enchants.Freeze;
 import customenchants.customenchants.enchants.Humore;
-import customenchants.customenchants.events.FirstHitEnch;
-import customenchants.customenchants.events.FreezeEnch;
-import customenchants.customenchants.events.HumoreEnch;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -25,17 +22,14 @@ import java.util.HashMap;
 
 public final class Main extends JavaPlugin implements Listener {
 
-    public static Main PLUGIN;
-
-    public static ArrayList<Enchantment> custom_enchants = new ArrayList<>();
-    public static Freeze freeze;
-    public static Humore humore;
-    public static Firsthit firsthit;
+    public ArrayList<Enchantment> custom_enchants = new ArrayList<>();
+    public Freeze freeze;
+    public Humore humore;
+    public Firsthit firsthit;
 
 
     @Override
     public void onEnable() {
-        PLUGIN = this;
 
         freeze = new Freeze("freeze");
         humore = new Humore("humore");
@@ -49,9 +43,9 @@ public final class Main extends JavaPlugin implements Listener {
         registerEnchantment(humore);
         registerEnchantment(firsthit);
 
-        this.getServer().getPluginManager().registerEvents(new FreezeEnch(), this);
-        this.getServer().getPluginManager().registerEvents(new HumoreEnch(), this);
-        this.getServer().getPluginManager().registerEvents(new FirstHitEnch(), this);
+        this.getServer().getPluginManager().registerEvents(freeze, this);
+        this.getServer().getPluginManager().registerEvents(humore, this);
+        this.getServer().getPluginManager().registerEvents(firsthit, this);
         this.getServer().getPluginManager().registerEvents(this, this);
     }
 
@@ -98,10 +92,6 @@ public final class Main extends JavaPlugin implements Listener {
         if(registered){
             // It's been registered!
         }
-    }
-
-    public static Main getPlugin(){
-        return PLUGIN;
     }
 
     @EventHandler
