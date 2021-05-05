@@ -1,0 +1,5 @@
+name: CustomEnchants
+version: ${project.version}
+main: customenchants.customenchants.Main
+api-version: 1.16
+authors: [ Trossty ]
