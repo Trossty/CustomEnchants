@@ -12,7 +12,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Firsthit extends Enchantment implements Listener  {
